@@ -20,7 +20,11 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt update
-          sudo apt install ninja-build
+          sudo apt install ninja-build nvidia-cuda-dev
+      - name: Install CUDA
+        uses: Jimver/cuda-toolkit@v0.2.8
+        with:
+          cuda: '11.7.0'
       - name: Generate build files
         run: |
           mkdir build && cd build

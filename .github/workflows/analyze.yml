@@ -31,7 +31,8 @@ jobs:
           cmake .. -GNinja \
                    -DCMAKE_BUILD_TYPE=Debug \
                    -DLIBCUDACXX_ENABLE_LIBCUDACXX_TESTS=ON \
-                   -Dlibcudacxx_ENABLE_CMAKE_TESTS=ON
+                   -Dlibcudacxx_ENABLE_CMAKE_TESTS=ON \
+                   -D_libcudacxx_enable_tests=ON
       - name: Run build-wrapper
         run: |
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} ninja -C build

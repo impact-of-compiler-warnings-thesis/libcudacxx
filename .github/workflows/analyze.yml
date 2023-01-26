@@ -20,7 +20,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt update
-          sudo apt install ninja-build nvidia-cuda-dev
+          sudo apt install ninja-build nvidia-cuda-dev gcc-9 g++-9
       - name: Install CUDA
         uses: Jimver/cuda-toolkit@v0.2.8
         with:
@@ -30,9 +30,11 @@ jobs:
           mkdir build && cd build
           cmake .. -GNinja \
                    -DCMAKE_BUILD_TYPE=Debug \
+                   -DCMAKE_C_COMPILER=gcc-9 \
+                   -DCMAKE_CXX_COMPILER=g++-9 \
                    -DLIBCUDACXX_ENABLE_LIBCUDACXX_TESTS=ON \
-                   -Dlibcudacxx_ENABLE_CMAKE_TESTS=ON \
-                   -D_libcudacxx_enable_tests=ON
+                   -DLIBCUDACXX_ENABLE_LIBCXX_TESTS=OFF \
+                   -Dlibcudacxx_ENABLE_CMAKE_TESTS=ON
       - name: Run build-wrapper
         run: |
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} ninja -C build
